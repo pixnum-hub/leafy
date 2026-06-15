@@ -1,0 +1,24 @@
+{
+  "$schema": "https://capacitorjs.com/docs/config",
+  "appId": "com.manikroy.leafy",
+  "appName": "Leafy",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "android": {
+    "buildOptions": {
+      "keystorePath": "leafy-release.keystore",
+      "keystoreAlias": "leafy"
+    }
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#0d1a0f",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "Dark",
+      "backgroundColor": "#0d1a0f"
+    }
+  }
+}

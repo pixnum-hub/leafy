@@ -1,7 +1,7 @@
 {
   "name": "Leafy — Plant Care Guide",
   "short_name": "Leafy",
-  "description": "Complete plant care guide with AI photo diagnosis, disease finder, soil & fertiliser data for 35+ plants.",
+  "description": "AI photo diagnosis, 43 plants, disease finder, soil & fertiliser calculators, watering tracker, propagation guide and cost tracker.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -11,54 +11,14 @@
   "lang": "en",
   "categories": ["lifestyle", "education", "health"],
   "icons": [
-    {
-      "src": "icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "icon-72.png",  "sizes": "72x72",   "type": "image/png", "purpose": "any" },
+    { "src": "icon-96.png",  "sizes": "96x96",   "type": "image/png", "purpose": "any" },
+    { "src": "icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "any" },
+    { "src": "icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "icon-152.png", "sizes": "152x152", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-384.png", "sizes": "384x384", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "screenshots": [
     {
@@ -71,18 +31,32 @@
   ],
   "shortcuts": [
     {
+      "name": "Photo Diagnosis",
+      "short_name": "AI Scan",
+      "description": "AI-powered plant photo disease analysis",
+      "url": "./index.html#photo",
+      "icons": [{ "src": "icon-96.png", "sizes": "96x96" }]
+    },
+    {
       "name": "Disease Finder",
       "short_name": "Diagnose",
       "description": "Find plant diseases by symptom",
       "url": "./index.html#disease",
-      "icons": [{"src": "icon-96.png", "sizes": "96x96"}]
+      "icons": [{ "src": "icon-96.png", "sizes": "96x96" }]
     },
     {
-      "name": "Photo Diagnosis",
-      "short_name": "AI Scan",
-      "description": "AI-powered plant photo analysis",
-      "url": "./index.html#photo",
-      "icons": [{"src": "icon-96.png", "sizes": "96x96"}]
+      "name": "Watering Tracker",
+      "short_name": "Water",
+      "description": "Track watering schedules for your plants",
+      "url": "./index.html#water",
+      "icons": [{ "src": "icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Soil Calculator",
+      "short_name": "Soil Mix",
+      "description": "Calculate exact soil mix quantities",
+      "url": "./index.html#soil",
+      "icons": [{ "src": "icon-96.png", "sizes": "96x96" }]
     }
   ],
   "related_applications": [],

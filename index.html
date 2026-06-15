@@ -16,8 +16,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap');
-:root{--bg:#0d1a0f;--card:#152017;--border:#1f3022;--accent:#4ade80;--accent2:#86efac;--text:#e8f5ea;--muted:#6b8f6e;--shadow:0 4px 24px #0009;--radius:18px;--font-body:'DM Sans',sans-serif;--font-display:'Playfair Display',serif}
+:root{--bg:#0d1a0f;--card:#152017;--border:#1f3022;--accent:#4ade80;--accent2:#86efac;--text:#e8f5ea;--muted:#6b8f6e;--shadow:0 4px 24px #0009;--radius:18px;--font-body:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;--font-display:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;display:flex;flex-direction:column;align-items:center;transition:background .3s,color .3s}
 body.light{--bg:#f0f7f1;--card:#fff;--border:#d4ecd9;--accent:#16a34a;--accent2:#15803d;--text:#0f2d14;--muted:#5a7a5e;--shadow:0 4px 24px #0001}
@@ -149,6 +148,57 @@ main{width:100%;max-width:480px;padding:20px;flex:1;display:flex;flex-direction:
 .cam-ctrl{display:flex;gap:14px;margin-top:18px}
 .cam-snap{background:var(--accent);color:#0a1a0c;border:none;border-radius:50%;width:64px;height:64px;font-size:1.6rem;cursor:pointer}
 .cam-close{background:#ffffff22;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.2rem;cursor:pointer}
+/* ── Tools & Trackers ───────────────────────────────────────── */
+.tool-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.tool-card h4{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:14px}
+.field-row{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.field-row label{font-size:.75rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.field-row input,.field-row select{background:var(--border);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:var(--font-body);font-size:.9rem;outline:none;transition:.2s;width:100%}
+.field-row input:focus,.field-row select:focus{border-color:var(--accent)}
+.field-row select option{background:var(--card)}
+.calc-btn{background:var(--accent);color:#0a1a0c;border:none;border-radius:10px;padding:11px;font-family:var(--font-body);font-size:.88rem;font-weight:600;cursor:pointer;width:100%;transition:.15s;margin-top:4px}
+.calc-btn:hover{opacity:.85}
+.calc-result{background:var(--border);border-radius:10px;padding:14px;margin-top:12px;display:none}
+.calc-result.show{display:block}
+.calc-result h5{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bg)}
+.calc-row:last-child{border-bottom:none}
+.calc-row .cn{font-size:.83rem;color:var(--text)}
+.calc-row .cv{font-size:.88rem;font-weight:600;color:var(--accent2)}
+/* Watering tracker */
+.wt-plant-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.wt-plant-row:last-child{border-bottom:none}
+.wt-info .wt-name{font-size:.9rem;font-weight:500;color:var(--text)}
+.wt-info .wt-next{font-size:.75rem;margin-top:2px}
+.wt-next.ok{color:var(--accent)}
+.wt-next.soon{color:#fbbf24}
+.wt-next.due{color:#f87171}
+.wt-btn{background:var(--accent);color:#0a1a0c;border:none;border-radius:8px;padding:6px 12px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:var(--font-body);white-space:nowrap}
+.wt-btn:hover{opacity:.85}
+.wt-add-row{display:flex;gap:8px;margin-bottom:14px}
+.wt-add-row select{flex:1;background:var(--border);border:1.5px solid var(--border);border-radius:10px;padding:9px 10px;color:var(--text);font-family:var(--font-body);font-size:.85rem;outline:none}
+.wt-add-row button{background:var(--accent);color:#0a1a0c;border:none;border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer;font-family:var(--font-body);font-size:.85rem}
+.wt-empty{font-size:.85rem;color:var(--muted);text-align:center;padding:12px 0}
+/* Cost tracker */
+.cost-list{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;max-height:220px;overflow-y:auto}
+.cost-item{display:flex;justify-content:space-between;align-items:center;background:var(--border);border-radius:8px;padding:8px 10px}
+.cost-item .ci-name{font-size:.83rem;color:var(--text)}
+.cost-item .ci-amt{font-size:.85rem;font-weight:600;color:var(--accent2)}
+.cost-item .ci-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;padding:0 4px}
+.cost-total{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1.5px solid var(--border);margin-top:4px}
+.cost-total span:first-child{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.cost-total span:last-child{font-size:1.1rem;font-weight:700;color:var(--accent)}
+.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+/* Propagation */
+.prop-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.prop-tab{background:var(--border);border:none;border-radius:8px;padding:7px 12px;font-size:.78rem;font-weight:500;cursor:pointer;color:var(--text);font-family:var(--font-body);transition:.2s}
+.prop-tab.active{background:var(--accent);color:#0a1a0c}
+.prop-pane{display:none}
+.prop-pane.active{display:block}
+.prop-steps{list-style:none;display:flex;flex-direction:column;gap:10px}
+.prop-steps li{display:flex;gap:10px;font-size:.84rem;line-height:1.5;color:var(--text)}
+.prop-steps li .step-num{background:var(--accent);color:#0a1a0c;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.prop-note{background:var(--border);border-radius:8px;padding:10px 12px;font-size:.8rem;color:var(--muted);margin-top:10px;line-height:1.5}
 footer{text-align:center;padding:24px 20px 20px;font-size:.74rem;color:var(--muted);line-height:1.8}
 footer strong{color:var(--accent);font-weight:500}
 </style>
@@ -220,6 +270,89 @@ footer strong{color:var(--accent);font-weight:500}
     </div>
     <div class="disease-result" id="diseaseResult"></div>
   </div>
+  <!-- #2 Watering Tracker -->
+  <div>
+    <div class="section-label">💧 Watering Tracker</div>
+    <div class="tool-card">
+      <h4>My Plant Watering Schedule</h4>
+      <div class="wt-add-row">
+        <select id="wtSelect"><option value="">— Pick a plant —</option></select>
+        <button onclick="wtAddPlant()">+ Add</button>
+      </div>
+      <div id="wtList"><div class="wt-empty">No plants added yet. Pick one above!</div></div>
+    </div>
+  </div>
+
+  <!-- #5 Propagation Guide -->
+  <div>
+    <div class="section-label">✂️ Propagation Guide</div>
+    <div class="tool-card">
+      <h4>How to Propagate</h4>
+      <div class="prop-tabs" id="propTabs"></div>
+      <div id="propPanes"></div>
+    </div>
+  </div>
+
+  <!-- #17 Soil Mix Calculator -->
+  <div>
+    <div class="section-label">🪨 Soil Mix Calculator</div>
+    <div class="tool-card">
+      <h4>Get exact ingredient quantities</h4>
+      <div class="field-row"><label>Plant</label>
+        <select id="soilPlant"><option value="">— Select plant —</option></select>
+      </div>
+      <div class="field-row"><label>Pot diameter (cm)</label>
+        <input type="number" id="soilPot" placeholder="e.g. 20" min="5" max="60" value="15">
+      </div>
+      <button class="calc-btn" onclick="calcSoil()">Calculate Soil Mix</button>
+      <div class="calc-result" id="soilResult"></div>
+    </div>
+  </div>
+
+  <!-- #18 Fertiliser Dilution Calculator -->
+  <div>
+    <div class="section-label">🧪 Fertiliser Calculator</div>
+    <div class="tool-card">
+      <h4>Get exact dilution amounts</h4>
+      <div class="field-row"><label>Plant</label>
+        <select id="fertPlant"><option value="">— Select plant —</option></select>
+      </div>
+      <div class="field-row"><label>Watering can / jug volume (L)</label>
+        <input type="number" id="fertVol" placeholder="e.g. 2" min="0.1" max="20" step="0.1" value="1">
+      </div>
+      <div class="field-row"><label>Fertiliser concentration (%)</label>
+        <input type="number" id="fertConc" placeholder="e.g. 5 (most liquid feeds)" min="0.1" max="100" step="0.1" value="5">
+      </div>
+      <button class="calc-btn" onclick="calcFert()">Calculate Dose</button>
+      <div class="calc-result" id="fertResult"></div>
+    </div>
+  </div>
+
+  <!-- #19 Plant Cost Tracker -->
+  <div>
+    <div class="section-label">💰 Plant Cost Tracker</div>
+    <div class="tool-card">
+      <h4>Track your spending</h4>
+      <div class="cost-grid">
+        <div class="field-row" style="margin:0"><label>Item</label>
+          <input type="text" id="costName" placeholder="e.g. Monstera plant">
+        </div>
+        <div class="field-row" style="margin:0"><label>Amount (₹ / $ / £)</label>
+          <input type="number" id="costAmt" placeholder="0.00" min="0" step="0.01">
+        </div>
+      </div>
+      <div class="field-row"><label>Category</label>
+        <select id="costCat">
+          <option>🌿 Plant</option><option>🪴 Pot / Planter</option>
+          <option>🪨 Soil & Mix</option><option>🧪 Fertiliser</option>
+          <option>🛠️ Tools</option><option>💡 Grow Light</option><option>🔖 Other</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="costAdd()">+ Add Expense</button>
+      <div id="costList" style="margin-top:14px"></div>
+    </div>
+  </div>
+
   <div>
     <div class="section-label">Essential Tips</div>
     <div class="tip-card">
@@ -524,6 +657,70 @@ const plants=[
         {name:'Coarse horticultural sand',pct:20,litres:'0.36 L',role:'Replicates dry rocky East African native habitat'}],
   soilMeta:{ph:'6.0–7.0',drainage:'Excellent',potSize:'15 cm (1.8 L total)',note:'ZZ plant rhizomes store water — in a very well-draining mix they can go 3–4 weeks without watering in winter.'},
   fert:{type:'Balanced slow-release',npk:'10-10-10',dose:'1 tsp per 4 L soil',freq:'Once in spring',note:'Extremely low feeder — one feed per season is plenty.'}},
+
+ {name:'Chilli Pepper',sci:'Capsicum annuum',icon:'🌶️',water:'Every 2–3 days',light:'Full sun',humidity:'Medium',toxic:'No',
+  tips:['Pinch off early flowers to build stronger plant before fruiting','Feed heavily with potassium once flowering begins','Support tall stems with stakes as fruits weigh them down'],badges:['Full sun','Edible fruit','Great for pots'],
+  soil:[{name:'Rich loam potting mix',pct:50,litres:'0.9 L',role:'Fertile moisture-holding base for heavy-feeding chillies'},
+        {name:'Well-rotted compost',pct:30,litres:'0.54 L',role:'Organic slow-release nutrition for fruit development'},
+        {name:'Perlite',pct:20,litres:'0.36 L',role:'Ensures drainage to prevent waterlogging in heavy fruiting stage'}],
+  soilMeta:{ph:'6.0–6.8',drainage:'Good',potSize:'25 cm (6 L total)',note:'Use at least a 5 L pot for best yields. South-facing window or full outdoor sun gives the hottest, most abundant chillies.'},
+  fert:{type:'High-potassium bloom/fruit feed',npk:'5-5-15',dose:'5 ml per 1 L water',freq:'Every 2 weeks once flowering starts',note:'Switch from balanced to high-potassium fertiliser when flowers appear to maximise fruit size and heat.'}},
+
+ {name:'Lemon Tree',sci:'Citrus limon',icon:'🍋',water:'Weekly',light:'Full sun',humidity:'Medium',toxic:'Mild',
+  tips:['Needs 6–8 hours of direct sunlight daily — south-facing window or outdoors in summer','Feed heavily during the growing season — citrus are hungry plants','Bring indoors above 10°C — lemon trees hate frost'],badges:['Full sun','Edible fruit','Fragrant flowers'],
+  soil:[{name:'Citrus/loam-based potting mix',pct:50,litres:'2.25 L',role:'Heavy fertile base suited to citrus root systems'},
+        {name:'Well-rotted compost',pct:25,litres:'1.13 L',role:'Adds sustained organic fertility for heavy-feeding citrus'},
+        {name:'Coarse horticultural sand',pct:25,litres:'1.13 L',role:'Ensures sharp drainage — citrus hate waterlogged roots'}],
+  soilMeta:{ph:'5.5–6.5',drainage:'Good',potSize:'35 cm (25 L total)',note:'Repot every 2–3 years into a slightly larger pot. Use terracotta pots for better moisture regulation and root health.'},
+  fert:{type:'Citrus specialist liquid fertiliser',npk:'8-4-8 + Fe, Mg, Mn',dose:'10 ml per 1 L water',freq:'Every 2 weeks (spring–summer), monthly (autumn–winter)',note:'Citrus need micronutrients especially iron and magnesium — use a citrus-specific fertiliser, not a general feed.'}},
+
+ {name:'Tulsi (Holy Basil)',sci:'Ocimum tenuiflorum',icon:'🙏',water:'Every 2 days',light:'Full sun',humidity:'Medium',toxic:'No',
+  tips:['Sacred plant in Hindu households — traditionally kept in the courtyard or near the entrance','Pinch off purple flower spikes regularly to extend the leaf harvest','Do not let soil dry completely — Tulsi wilts quickly but recovers fast if watered promptly'],badges:['Full sun','Sacred herb','Medicinal'],
+  soil:[{name:'Rich potting mix',pct:50,litres:'0.9 L',role:'Fertile moisture-holding base for this fast-growing herb'},
+        {name:'Well-rotted compost',pct:35,litres:'0.63 L',role:'Mimics rich garden soil Tulsi thrives in naturally'},
+        {name:'Perlite',pct:15,litres:'0.27 L',role:'Slight drainage to prevent root rot in heavy rains'}],
+  soilMeta:{ph:'6.0–7.5',drainage:'Moderate',potSize:'20 cm (3.8 L total)',note:'Tulsi grows best in a terracotta pot in full sun. Replace the plant every 2–3 years as it becomes woody and less productive.'},
+  fert:{type:'Organic liquid herb fertiliser',npk:'5-5-5',dose:'5 ml per 1 L water',freq:'Every 2 weeks (growing season)',note:'Use only organic fertilisers — Tulsi leaves are used medicinally and in cooking daily.'}},
+
+ {name:'Curry Leaf Tree',sci:'Murraya koenigii',icon:'🌿',water:'Twice weekly',light:'Full sun',humidity:'Medium',toxic:'No',
+  tips:['Essential in South Indian cooking — harvest sprigs regularly to keep plant bushy','Bring indoors in winter — cannot tolerate frost','Feed with iron-rich fertiliser if leaves yellow between veins'],badges:['Full sun','Culinary herb','Aromatic leaves'],
+  soil:[{name:'All-purpose potting mix',pct:50,litres:'0.9 L',role:'Balanced base for this moderate-feeding culinary tree'},
+        {name:'Well-rotted compost',pct:30,litres:'0.54 L',role:'Adds organic nutrients essential for aromatic leaf production'},
+        {name:'Coarse sand',pct:20,litres:'0.36 L',role:'Improves drainage — curry leaf tree dislikes waterlogged roots'}],
+  soilMeta:{ph:'6.0–7.0',drainage:'Good',potSize:'30 cm (12 L total)',note:'Use a large pot — curry leaf tree has an extensive root system and fruits best when slightly root-bound in rich soil.'},
+  fert:{type:'Balanced + iron supplement',npk:'10-10-10 + Fe chelate',dose:'5 ml per 1 L water',freq:'Every 2 weeks (spring–summer)',note:'Iron deficiency is common — apply chelated iron foliar spray if leaves yellow between green veins.'}},
+
+ {name:'Neem Tree',sci:'Azadirachta indica',icon:'🌳',water:'Weekly',light:'Full sun',humidity:'Low',toxic:'No (leaves bitter)',
+  tips:['One of Indias most revered medicinal and pesticidal trees','Extremely drought-tolerant once established','Neem oil from leaves is a powerful natural pesticide for other plants'],badges:['Full sun','Medicinal','Natural pesticide'],
+  soil:[{name:'Sandy loam mix',pct:50,litres:'N/A — garden',role:'Well-draining low-fertility base replicates native Indian soil'},
+        {name:'Coarse sand',pct:30,litres:'N/A — garden',role:'Ensures sharp drainage — neem hates wet feet'},
+        {name:'Well-rotted compost',pct:20,litres:'N/A — garden',role:'Minimal organic matter for establishment only'}],
+  soilMeta:{ph:'6.2–7.0',drainage:'Excellent',potSize:'Garden tree or large 40 cm+ container',note:'Neem trees grow fast in poor dry soils. Overwatering and waterlogging are the primary killers of young neem trees.'},
+  fert:{type:'Low-nitrogen balanced',npk:'5-10-5',dose:'10 g per L soil (granular)',freq:'Once in spring only',note:'Neem is adapted to poor soils — overfeeding produces lots of leaves but reduces medicinal compound concentration.'}},
+
+ {name:'Ashwagandha',sci:'Withania somnifera',icon:'🌾',water:'Weekly',light:'Full sun',humidity:'Low',toxic:'No',
+  tips:['Ancient Ayurvedic herb — roots are the medicinal part and are harvested after 150–180 days','Extremely drought-tolerant — overwatering is the main risk','Harvest roots in late autumn when leaves begin to yellow'],badges:['Full sun','Ayurvedic herb','Drought tolerant'],
+  soil:[{name:'Sandy loam mix',pct:50,litres:'0.9 L',role:'Well-draining low-fertility base for deep root development'},
+        {name:'Coarse sand',pct:30,litres:'0.54 L',role:'Replicates dry Indian subcontinent native habitat'},
+        {name:'Well-rotted compost',pct:20,litres:'0.36 L',role:'Light organic boost for germination and early growth'}],
+  soilMeta:{ph:'7.5–8.0',drainage:'Excellent',potSize:'30 cm deep container (minimum)',note:'Ashwagandha needs deep containers for root development. Alkaline sandy soil produces the best medicinal root yield.'},
+  fert:{type:'Organic low-nitrogen',npk:'4-8-8',dose:'3 ml per 1 L water',freq:'Once at planting, once mid-season',note:'Minimal feeding needed — poor soil actually encourages deeper root growth and higher withanolide content.'}},
+
+ {name:'Mogra (Jasmine)',sci:'Jasminum sambac',icon:'🤍',water:'Every 2–3 days',light:'Full sun to bright indirect',humidity:'Medium',toxic:'No',
+  tips:['Most fragrant Indian flower — beloved for garlands, hair and worship offerings','Prune lightly after each flush of blooms to encourage the next flowering cycle','Feed with phosphorus-rich fertiliser in spring to trigger heavy blooming'],badges:['Fragrant blooms','Full sun','Sacred flower'],
+  soil:[{name:'Loam-based potting mix',pct:50,litres:'0.9 L',role:'Moisture-retentive fertile base for this vigorous climber'},
+        {name:'Well-rotted compost',pct:30,litres:'0.54 L',role:'Rich organic matter encourages prolific flowering'},
+        {name:'Coarse sand',pct:20,litres:'0.36 L',role:'Prevents waterlogging between frequent waterings'}],
+  soilMeta:{ph:'6.0–7.5',drainage:'Good',potSize:'20 cm (3.8 L total)',note:'Mogra blooms most prolifically in full outdoor sun in Indian summers. Train on a small trellis for best display and air circulation.'},
+  fert:{type:'High-phosphorus bloom fertiliser',npk:'10-30-10',dose:'4 ml per 1 L water',freq:'Every 2 weeks (spring–summer)',note:'High phosphorus is the key to heavy fragrant blooms. Reduce to balanced feed in winter.'}},
+
+ {name:'Rose',sci:'Rosa hybrid',icon:'🌹',water:'Every 2–3 days',light:'Full sun',humidity:'Medium',toxic:'No',
+  tips:['Deadhead spent blooms immediately to encourage continuous flowering','Water at the base — never wet the leaves to prevent fungal disease','Prune hard in late winter to a 30–45 cm framework for best new season growth'],badges:['Full sun','Fragrant blooms','Repeat flowering'],
+  soil:[{name:'Loam-based potting mix',pct:50,litres:'2.25 L',role:'Heavy fertile base that retains moisture and anchors deep roots'},
+        {name:'Well-rotted compost or manure',pct:30,litres:'1.35 L',role:'Rich organic matter — roses are heavy feeders and reward rich soil generously'},
+        {name:'Coarse horticultural sand',pct:20,litres:'0.90 L',role:'Prevents waterlogging and improves aeration around the root zone'}],
+  soilMeta:{ph:'6.0–6.5',drainage:'Good',potSize:'35 cm (25 L total) for pots; garden bed preferred',note:'Roses thrive in deep rich soil. Dig at least 60 cm deep when planting in the ground and mix in a full bucket of compost per plant.'},
+  fert:{type:'Rose specialist fertiliser',npk:'6-12-6 + Fe, Mg',dose:'5 ml per 1 L water (liquid) or 30 g per plant (granular)',freq:'Every 2 weeks (spring–summer); stop 6 weeks before first frost',note:'High phosphorus drives bloom production. Add Epsom salts (1 tsp per 1 L) monthly for magnesium to deepen flower colour and strengthen stems.'}},
 ];
 plants.sort((a,b)=>a.name.localeCompare(b.name));
 
@@ -641,7 +838,7 @@ document.getElementById('plantInput').addEventListener('keydown',e=>{if(e.key===
 renderFeatured();renderWater();renderSeasons();
 
 // ── Disease Finder ──────────────────────────────────────────────
-const symptoms=['Yellow leaves','Brown tips','Wilting','Black spots','White powder','Sticky residue','Mushy stems','Dropping leaves','Pale/bleached leaves','Leggy growth','Holes in leaves','Rusty/orange spots','Curling leaves','Root rot smell','Tiny bugs visible','Mouldy soil surface'];
+const symptoms=['Yellow leaves','Brown tips','Wilting','Black spots','White powder','Sticky residue','Mushy stems','Dropping leaves','Pale/bleached leaves','Leggy growth','Holes in leaves','Rusty/orange spots','Curling leaves','Root rot smell','Tiny bugs visible','Mouldy soil surface','White cottony fluff','Silvery streaks on leaves','Sooty black coating','Swollen/distorted growth','Waterlogged soil','Leaf edges crispy & brown'];
 
 const diseases=[
  {name:'Overwatering / Root Rot',icon:'💧',sev:'high',sevLabel:'Severe',
@@ -748,6 +945,76 @@ const diseases=[
   remedies:['Remove all infected leaves and dispose — never compost','Apply sulphur-based fungicide or neem oil spray every 7 days','Avoid wetting foliage — always water at soil level','Ensure 30+ cm spacing between plants for airflow','Use a systemic fungicide (tebuconazole) for persistent rust'],
   prevention:'Water at base. Improve airflow. Choose rust-resistant plant varieties where possible.',
   affects:'Roses, geraniums, lavender, hollyhocks, pelargoniums'},
+
+ {name:'Mealybug Infestation',icon:'🦠',sev:'med',sevLabel:'Moderate',
+  symptoms:['White cottony fluff','Sticky residue','Yellow leaves','Tiny bugs visible','Dropping leaves'],
+  cause:'Soft-bodied insects covered in white waxy fluff that cluster at leaf joints and undersides, sucking sap and secreting honeydew.',
+  remedies:['Dab individual mealybugs with a cotton swab soaked in 70% isopropyl alcohol','Spray entire plant with neem oil solution (5 ml per 1 L water) every 5 days for 3–4 weeks','Rinse plant under a strong shower to dislodge clusters from stems','Apply insecticidal soap spray to all leaf joints and undersides','Introduce Cryptolaemus montrouzieri (mealybug destroyer) beetle for biological control'],
+  prevention:'Quarantine all new plants for 2 weeks. Check stem joints monthly. Avoid over-fertilising with nitrogen — lush growth attracts mealybugs.',
+  affects:'Cacti, succulents, orchids, jade plant, monstera, hibiscus, citrus'},
+
+ {name:'Thrips Damage',icon:'⚡',sev:'med',sevLabel:'Moderate',
+  symptoms:['Silvery streaks on leaves','Pale/bleached leaves','Black spots','Curling leaves','Tiny bugs visible'],
+  cause:'Tiny winged insects rasp leaf surfaces and suck cell contents, leaving silvery scars and dark frass deposits.',
+  remedies:['Isolate infested plant immediately','Spray all leaf surfaces with neem oil or spinosad-based insecticide every 3–5 days','Use blue or yellow sticky traps to capture adult thrips','Remove and dispose of severely damaged leaves','Apply systemic insecticide (imidacloprid) as soil drench for persistent infestations'],
+  prevention:'Use sticky traps as early warning. Inspect new growth weekly. Maintain good airflow and avoid dry conditions.',
+  affects:'Orchids, peace lily, ficus, peppers, roses, basil'},
+
+ {name:'Sooty Mould',icon:'🖤',sev:'low',sevLabel:'Mild',
+  symptoms:['Sooty black coating','Sticky residue','Yellow leaves','Pale/bleached leaves'],
+  cause:'Black fungal growth feeds on honeydew secreted by sap-sucking insects (aphids, scale, whitefly). It blocks sunlight and impairs photosynthesis.',
+  remedies:['Treat the underlying pest infestation first (aphids, scale, or whitefly)','Wipe sooty deposits off leaves with a soft cloth dampened with mild soapy water','Rinse leaves with clean water after wiping','Apply neem oil spray to discourage recolonisation','Improve airflow and reduce humidity around affected plants'],
+  prevention:'Control sap-sucking insects promptly. Sooty mould cannot establish without honeydew.',
+  affects:'Any plant with aphid, scale, or whitefly infestation — especially orchids, citrus, gardenias'},
+
+ {name:'Whitefly Infestation',icon:'🪰',sev:'med',sevLabel:'Moderate',
+  symptoms:['Tiny bugs visible','Sticky residue','Yellow leaves','Sooty black coating','Pale/bleached leaves'],
+  cause:'Tiny white-winged flies cluster on leaf undersides, sucking sap and excreting honeydew that leads to sooty mould.',
+  remedies:['Hang yellow sticky traps near plants to capture adults immediately','Spray leaf undersides thoroughly with insecticidal soap every 3 days for 2 weeks','Apply neem oil spray as a systemic deterrent','Introduce Encarsia formosa parasitic wasps for biological control in greenhouses','Use a handheld vacuum to physically remove adults from leaves in the morning'],
+  prevention:'Inspect leaf undersides weekly. Use sticky traps as monitors. Avoid dense overcrowding.',
+  affects:'Tomatoes, basil, geraniums, fuchsias, hibiscus, poinsettia'},
+
+ {name:'Crown Rot',icon:'👑',sev:'high',sevLabel:'Severe',
+  symptoms:['Mushy stems','Root rot smell','Wilting','Yellow leaves','Dropping leaves'],
+  cause:'Fungal or bacterial pathogens infect the crown (base of stem at soil level) due to excess moisture, poor drainage, or soil sitting against the stem.',
+  remedies:['Remove plant from pot and cut away all brown mushy crown tissue with sterilised knife','Dust wounds with sulphur powder or cinnamon as antifungal treatment','Allow cut surfaces to callus in open air for 24–48 hours before repotting','Repot into completely fresh dry well-draining mix in a clean pot','Do not water for 2 weeks — allow the plant to stabilise'],
+  prevention:'Never bury crown below soil level. Ensure soil surface stays dry. Use well-draining gritty mix.',
+  affects:'Cacti, succulents, aloe vera, orchids, african violets, rosette plants'},
+
+ {name:'Bacterial Wilt',icon:'🌡️',sev:'high',sevLabel:'Severe',
+  symptoms:['Wilting','Yellow leaves','Mushy stems','Dropping leaves','Black spots'],
+  cause:'Bacteria (Ralstonia or Erwinia species) block the plant\'s vascular system, preventing water uptake. Spreads via infected soil, tools, and water splash.',
+  remedies:['Remove and destroy infected plants immediately — do not compost','Sterilise all tools, pots, and surfaces with 10% bleach solution','Do not reuse infected soil — dispose safely and replace entirely','Apply copper-based bactericide to remaining healthy plants as preventative','Improve drainage and avoid overhead watering to reduce spread'],
+  prevention:'Sanitise tools between plants. Quarantine new plants. Avoid waterlogged conditions.',
+  affects:'Tomatoes, peppers, pothos, cucumbers, bananas, ginger'},
+
+ {name:'Edema (Oedema)',icon:'💦',sev:'low',sevLabel:'Mild',
+  symptoms:['Swollen/distorted growth','Brown tips','Waterlogged soil','Yellow leaves'],
+  cause:'Plant absorbs water faster than it can transpire, causing cells to burst and form corky, blister-like raised bumps on leaves — not a disease but a physiological disorder.',
+  remedies:['Reduce watering frequency immediately and improve soil drainage','Move plant to a brighter spot to increase transpiration rate','Remove affected leaves — they will not recover but new growth will be healthy','Improve air circulation around the plant','Avoid overwatering in cold or low-light conditions when transpiration is slow'],
+  prevention:'Water only when soil is dry. Ensure bright light. Use well-draining mix.',
+  affects:'Succulents, jade plant, peperomia, geraniums, ivy, rubber plant'},
+
+ {name:'Tip Burn / Salt Toxicity',icon:'🧂',sev:'low',sevLabel:'Mild',
+  symptoms:['Leaf edges crispy & brown','Brown tips','Yellow leaves','Dropping leaves'],
+  cause:'Excess fertiliser salts or fluoride accumulate in soil and damage root tips, preventing water uptake and causing leaf tip scorch.',
+  remedies:['Flush soil thoroughly: pour 3–4 volumes of clean water through the pot to leach out salts','Do not fertilise for 4–6 weeks after flushing','Switch to filtered or rainwater if tap water is high in fluoride or chlorine','Trim brown leaf tips with sterile scissors at an angle for aesthetics','Reduce fertiliser dose to half-strength going forward'],
+  prevention:'Feed at half-strength. Flush soil every 1–2 months. Use rain water or filtered water for sensitive plants.',
+  affects:'Spider plants, dracaena, peace lily, calathea, orchids'},
+
+ {name:'Virus Mosaic Disease',icon:'🧬',sev:'high',sevLabel:'Severe',
+  symptoms:['Pale/bleached leaves','Yellow leaves','Curling leaves','Swollen/distorted growth','Holes in leaves'],
+  cause:'Plant viruses (TMV, CMV, etc.) spread via infected tools, sap-sucking insects, or contaminated soil — no chemical cure exists.',
+  remedies:['Isolate infected plant immediately to prevent spread to healthy plants','Destroy infected plant — do not compost (viruses persist in soil)','Sterilise all tools and pots with 10% bleach or 70% alcohol','Control aphids and whiteflies — they are the primary vectors','Wash hands thoroughly after handling infected plants'],
+  prevention:'Control insect vectors. Sterilise tools. Buy certified virus-free plants from reputable nurseries.',
+  affects:'Tomatoes, tobacco, cucumbers, orchids, dahlias, petunias'},
+
+ {name:'Downy Mildew',icon:'🌫️',sev:'med',sevLabel:'Moderate',
+  symptoms:['White powder','Pale/bleached leaves','Yellow leaves','Dropping leaves'],
+  cause:'Water mould (Peronospora) that thrives in cool, wet, humid conditions — distinct from powdery mildew as it grows on leaf undersides.',
+  remedies:['Remove all infected leaves and dispose immediately','Apply copper-based fungicide or mancozeb spray every 5–7 days','Ensure leaves dry completely before nightfall — water only in the morning','Improve spacing and air circulation between plants significantly','Apply potassium bicarbonate spray (5 g per 1 L water) as organic treatment'],
+  prevention:'Water in the morning at soil level. Improve airflow. Avoid humid stagnant conditions.',
+  affects:'Basil, roses, lettuce, impatiens, grapes, cucumbers'},
 ];
 
 const allSymptoms=symptoms;
@@ -755,10 +1022,11 @@ let selectedSymptoms=new Set();
 
 function renderSymptoms(){
   document.getElementById('symptomGrid').innerHTML=allSymptoms.map(s=>
-    `<span class="sym-chip${selectedSymptoms.has(s)?' sel':''}" onclick="toggleSym('${s}')">${s}</span>`).join('');
+    `<span class="sym-chip${selectedSymptoms.has(s)?' sel':''}" data-s="${s.replace(/"/g,'&quot;')}" onclick="toggleSym(this)">${s}</span>`).join('');
 }
 
-function toggleSym(s){
+function toggleSym(el){
+  const s=el.dataset.s;
   selectedSymptoms.has(s)?selectedSymptoms.delete(s):selectedSymptoms.add(s);
   renderSymptoms();
 }
@@ -921,7 +1189,144 @@ URGENCY: [Immediate action needed / Monitor closely / No action required]`}
   spinner.className='ai-spinner';btn.disabled=false;
 }
 
-renderSymptoms();
+// ── #2 Watering Tracker ─────────────────────────────────────────
+const wtFreqDays={'Daily':1,'Every 2-3 days':2,'Twice weekly':3,'Weekly':7,'Bi-weekly':14,'Every 1-2 weeks':10,'Every 2-3 weeks':18,'Every 3 weeks':21,'Monthly':28,'Every 2 months':56};
+function wtFreqToDays(f){for(const k in wtFreqDays)if(f.toLowerCase().includes(k.toLowerCase()))return wtFreqDays[k];return 7;}
+function wtLoad(){try{return JSON.parse(localStorage.getItem('leafy_wt')||'[]');}catch{return[];}}
+function wtSave(d){try{localStorage.setItem('leafy_wt',JSON.stringify(d));}catch{}}
+function wtAddPlant(){
+  const sel=document.getElementById('wtSelect');
+  const idx=parseInt(sel.value);if(isNaN(idx))return;
+  const p=plants[idx];const d=wtLoad();
+  if(d.find(x=>x.name===p.name)){sel.value='';return;}
+  d.push({name:p.name,icon:p.icon,freqDays:wtFreqToDays(p.water),lastWatered:null});
+  wtSave(d);wtRender();sel.value='';
+}
+function wtWater(name){const d=wtLoad();const p=d.find(x=>x.name===name);if(p){p.lastWatered=new Date().toISOString();wtSave(d);wtRender();}}
+function wtRemove(name){wtSave(wtLoad().filter(x=>x.name!==name));wtRender();}
+function wtRender(){
+  const d=wtLoad();const el=document.getElementById('wtList');
+  if(!d.length){el.innerHTML='<div class="wt-empty">No plants added yet. Pick one above!</div>';return;}
+  const now=new Date();
+  el.innerHTML=d.map(p=>{
+    let status='',cls='ok';
+    if(!p.lastWatered){status='Never watered yet';cls='due';}
+    else{const last=new Date(p.lastWatered);const next=new Date(last.getTime()+p.freqDays*86400000);const diff=Math.round((next-now)/86400000);
+      if(diff<=0){status='Water today!';cls='due';}else if(diff===1){status='Water tomorrow';cls='soon';}else{status='Next in '+diff+' days';cls='ok';}}
+    const safeName=p.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return`<div class="wt-plant-row"><div class="wt-info"><div class="wt-name">${p.icon} ${p.name}</div><div class="wt-next ${cls}">${status}</div></div>
+    <div style="display:flex;gap:6px"><button class="wt-btn" onclick="wtWater('${safeName}')">💧 Watered</button>
+    <button class="wt-btn" style="background:var(--border);color:var(--muted)" onclick="wtRemove('${safeName}')">✕</button></div></div>`;
+  }).join('');
+}
+function wtInitSelect(){const sel=document.getElementById('wtSelect');plants.forEach((p,i)=>sel.appendChild(Object.assign(document.createElement('option'),{value:i,textContent:p.icon+' '+p.name})));}
+
+// ── #5 Propagation Guide ─────────────────────────────────────────
+const propMethods=[
+  {label:'✂️ Stem Cutting',plants:'Pothos, Philodendron, Tradescantia, Monstera, Basil, Mint, Rosemary',
+   steps:['Choose a healthy stem with 2–4 leaves and at least one node (bump on stem).','Cut just below a node with clean sterilised scissors.','Remove all leaves from the bottom half of the cutting.','Place in a clean glass of water, ensuring the node is submerged but leaves stay dry.','Put in bright indirect light and change water every 3–4 days.','Wait 2–4 weeks for roots to reach 3–5 cm long.','Pot into moist soil mix and keep humid for 1 week to acclimatise.'],
+   note:'Best done in spring. Roots form fastest at 20–25°C. Add a pinch of activated charcoal to the water to prevent rot.'},
+  {label:'🍃 Leaf Cutting',plants:'Succulents, Aloe Vera, Snake Plant, Jade Plant, Kalanchoe',
+   steps:['Gently twist a healthy plump leaf from the base — it must come off cleanly with no tear.','Lay the leaf on dry cactus mix or sand. Do not bury it.','Place in bright indirect light and mist very lightly every 3–4 days.','After 2–4 weeks tiny pink roots and a baby plantlet will emerge at the base.','Once the baby is 2–3 cm, the mother leaf will shrivel — gently remove it.','Pot the tiny plantlet into a small container with well-draining mix.','Water sparingly — once every 1–2 weeks initially.'],
+   note:'Never use damaged or small leaves. Success rate improves in warm dry conditions. Do not water until roots are visible.'},
+  {label:'🌿 Root Division',plants:'Spider Plant, Peace Lily, Calathea, Bamboo Palm, Boston Fern',
+   steps:['Water the plant thoroughly 24 hours before dividing to reduce stress.','Remove plant from pot and gently shake off excess soil from the rootball.','Identify natural separation points where stems and roots naturally cluster.','Use clean sterilised scissors to cut through the rootball.','Ensure each division has at least 2–3 healthy leaves and a good root section.','Pot each division into fresh well-draining mix in an appropriately sized pot.','Water gently and place in indirect light — avoid direct sun for 2 weeks.'],
+   note:'Best done when repotting in spring. Divisions may look stressed for 1–2 weeks — this is normal.'},
+  {label:'🌱 Offsets / Pups',plants:'Aloe Vera, Snake Plant, Spider Plant, Bromeliad',
+   steps:['Wait until the pup is at least one-third the size of the mother plant.','Clear soil from the base to expose where the pup joins the mother root.','Cut the pup free with a sterilised knife, keeping as many roots as possible.','Dust the cut surface with cinnamon powder as a natural antifungal.','Allow the cut end to callus for 24 hours in open air.','Plant in a small pot with well-draining mix, burying only the root section.','Keep lightly moist and in bright indirect light — roots establish in 2–4 weeks.'],
+   note:'Never remove a pup too early — it needs its own roots to survive independently.'},
+  {label:'💧 Water Propagation',plants:'Pothos, Philodendron, Tradescantia, Basil, Mint, English Ivy',
+   steps:['Cut a 10–15 cm stem just below a leaf node using sterile scissors.','Strip all leaves from the bottom third of the stem — no leaves in the water.','Fill a clear glass with room-temperature filtered water.','Place cutting so at least one node is submerged; leaves stay above water.','Position in bright indirect light.','Change water every 3–4 days to prevent bacterial build-up.','Once roots are 3–5 cm, pot into moist soil and keep humid for the first week.'],
+   note:'Clear containers let you monitor root growth. Adding a few drops of liquid rooting hormone speeds up the process.'},
+];
+function renderProp(){
+  document.getElementById('propTabs').innerHTML=propMethods.map((m,i)=>`<button class="prop-tab${i===0?' active':''}" onclick="switchProp(${i},this)">${m.label}</button>`).join('');
+  document.getElementById('propPanes').innerHTML=propMethods.map((m,i)=>`
+    <div class="prop-pane${i===0?' active':''}" id="prop-${i}">
+      <p style="font-size:.75rem;color:var(--muted);margin-bottom:10px">Works for: ${m.plants}</p>
+      <ol class="prop-steps">${m.steps.map((s,n)=>`<li><span class="step-num">${n+1}</span><span>${s}</span></li>`).join('')}</ol>
+      <div class="prop-note">💡 ${m.note}</div></div>`).join('');
+}
+function switchProp(i,el){
+  document.querySelectorAll('.prop-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.prop-pane').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');document.getElementById('prop-'+i).classList.add('active');
+}
+
+// ── #17 Soil Mix Calculator ──────────────────────────────────────
+function potVolLitres(d){const r=(d/2)/100;const h=r*1.2;return Math.PI*r*r*h*1000*0.85;}
+function calcSoil(){
+  const idx=document.getElementById('soilPlant').value;
+  const diam=parseFloat(document.getElementById('soilPot').value);
+  const el=document.getElementById('soilResult');
+  if(!idx){el.innerHTML='<p style="color:var(--muted);font-size:.83rem">Please select a plant.</p>';el.className='calc-result show';return;}
+  if(!diam||diam<5){el.innerHTML='<p style="color:var(--muted);font-size:.83rem">Enter a pot diameter (5–60 cm).</p>';el.className='calc-result show';return;}
+  const p=plants[parseInt(idx)];const vol=potVolLitres(diam);
+  el.innerHTML=`<h5>${p.icon} ${p.name} — ${diam} cm pot (≈ ${vol.toFixed(2)} L total)</h5>
+    ${p.soil.map(s=>{const q=vol*s.pct/100;return`<div class="calc-row"><span class="cn">${s.name} (${s.pct}%)</span><span class="cv">≈ ${q.toFixed(2)} L / ${(q*600).toFixed(0)} g</span></div>`;}).join('')}
+    <div class="calc-row"><span class="cn" style="color:var(--muted);font-size:.75rem">Target pH</span><span class="cv" style="font-size:.8rem">${p.soilMeta.ph}</span></div>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:8px">💡 ${p.soilMeta.note}</p>`;
+  el.className='calc-result show';
+}
+
+// ── #18 Fertiliser Dilution Calculator ──────────────────────────
+function calcFert(){
+  const idx=document.getElementById('fertPlant').value;
+  const vol=parseFloat(document.getElementById('fertVol').value);
+  const el=document.getElementById('fertResult');
+  if(!idx){el.innerHTML='<p style="color:var(--muted);font-size:.83rem">Please select a plant.</p>';el.className='calc-result show';return;}
+  if(!vol||vol<=0){el.innerHTML='<p style="color:var(--muted);font-size:.83rem">Enter a valid volume.</p>';el.className='calc-result show';return;}
+  const p=plants[parseInt(idx)];
+  const m=p.fert.dose.match(/([\d.]+)\s*ml\s*per\s*([\d.]+)\s*L/i);
+  let rows='';
+  if(m){const base=parseFloat(m[1])/parseFloat(m[2])*vol;
+    rows=`<div class="calc-row"><span class="cn">Recommended dose</span><span class="cv">${base.toFixed(1)} ml</span></div>
+    <div class="calc-row"><span class="cn">Half-strength (sensitive)</span><span class="cv">${(base/2).toFixed(1)} ml</span></div>
+    <div class="calc-row"><span class="cn">Quarter-strength (seedlings)</span><span class="cv">${(base/4).toFixed(1)} ml</span></div>`;}
+  else{rows=`<div class="calc-row"><span class="cn">Dose</span><span class="cv">${p.fert.dose}</span></div>`;}
+  el.innerHTML=`<h5>${p.icon} ${p.name} — ${vol} L water</h5>
+    ${rows}
+    <div class="calc-row"><span class="cn">Fertiliser (NPK)</span><span class="cv">${p.fert.npk}</span></div>
+    <div class="calc-row"><span class="cn">Feed schedule</span><span class="cv">${p.fert.freq}</span></div>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:8px">💡 ${p.fert.note}</p>`;
+  el.className='calc-result show';
+}
+
+// ── #19 Plant Cost Tracker ───────────────────────────────────────
+function costLoad(){try{return JSON.parse(localStorage.getItem('leafy_cost')||'[]');}catch{return[];}}
+function costSave(d){try{localStorage.setItem('leafy_cost',JSON.stringify(d));}catch{}}
+function costAdd(){
+  const name=document.getElementById('costName').value.trim();
+  const amt=parseFloat(document.getElementById('costAmt').value);
+  const cat=document.getElementById('costCat').value;
+  if(!name||isNaN(amt)||amt<0)return;
+  const d=costLoad();d.push({id:Date.now(),name,amt,cat});costSave(d);costRender();
+  document.getElementById('costName').value='';document.getElementById('costAmt').value='';
+}
+function costDel(id){costSave(costLoad().filter(x=>x.id!==id));costRender();}
+function costRender(){
+  const d=costLoad();const el=document.getElementById('costList');
+  if(!d.length){el.innerHTML='<div class="wt-empty">No expenses logged yet.</div>';return;}
+  const total=d.reduce((s,x)=>s+x.amt,0);
+  const groups={};d.forEach(x=>{if(!groups[x.cat])groups[x.cat]=[];groups[x.cat].push(x);});
+  let html='<div class="cost-list">';
+  Object.entries(groups).forEach(([cat,items])=>{
+    html+=`<div style="font-size:.7rem;color:var(--muted);padding:6px 0 2px;text-transform:uppercase;letter-spacing:.08em">${cat}</div>`;
+    items.forEach(x=>{html+=`<div class="cost-item"><span class="ci-name">${x.name}</span><span style="display:flex;align-items:center;gap:6px"><span class="ci-amt">${x.amt.toFixed(2)}</span><button class="ci-del" onclick="costDel(${x.id})">✕</button></span></div>`;});
+  });
+  html+=`</div><div class="cost-total"><span>Total Spent</span><span>${total.toFixed(2)}</span></div>`;
+  el.innerHTML=html;
+}
+
+// ── Init ─────────────────────────────────────────────────────────
+function initToolSelects(){
+  ['soilPlant','fertPlant'].forEach(id=>{
+    const sel=document.getElementById(id);
+    plants.forEach((p,i)=>sel.appendChild(Object.assign(document.createElement('option'),{value:i,textContent:p.icon+' '+p.name})));
+  });
+}
+
+renderSymptoms();wtInitSelect();wtRender();initToolSelects();renderProp();costRender();
 </script>
 <script>
 if('serviceWorker' in navigator){
