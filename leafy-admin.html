@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leafy Admin — Licence Generator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0f0a;color:#e8f5ea;font-family:system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.box{background:#0f1a10;border:1.5px solid #1f3022;border-radius:20px;padding:32px 28px;width:100%;max-width:480px}
+h1{color:#4ade80;font-size:1.4rem;margin-bottom:4px}
+.sub{color:#6b8f6e;font-size:.85rem;margin-bottom:28px}
+.field{margin-bottom:16px}
+label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:#6b8f6e;margin-bottom:6px}
+input,select{width:100%;background:#152017;border:1.5px solid #1f3022;border-radius:10px;padding:11px 14px;color:#e8f5ea;font-family:monospace;font-size:.95rem;outline:none}
+input:focus,select:focus{border-color:#4ade80}
+select option{background:#152017}
+button{width:100%;background:#4ade80;color:#0a1a0c;border:none;border-radius:12px;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;font-family:system-ui,sans-serif}
+button:hover{opacity:.88}
+.result{display:none;margin-top:20px;background:#1a3020;border:1.5px solid #4ade80;border-radius:14px;padding:18px}
+.result h3{color:#4ade80;font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.pw-box{display:flex;align-items:center;gap:10px;background:#0a1a0c;border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.pw-val{font-family:monospace;font-size:1.1rem;font-weight:700;color:#86efac;letter-spacing:.1em;flex:1;word-break:break-all}
+.copy-btn{background:#4ade80;color:#0a1a0c;border:none;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;font-size:.8rem;font-family:system-ui,sans-serif;white-space:nowrap}
+.meta{font-size:.78rem;color:#6b8f6e;line-height:1.6}
+.meta span{color:#86efac}
+.warn{background:#fbbf2415;border:1px solid #fbbf24;border-radius:8px;padding:10px 14px;font-size:.78rem;color:#fbbf24;margin-top:20px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>🌿 Leafy Licence Generator</h1>
+  <p class="sub">Admin tool — keep this file private. © Manik Roy 2026</p>
+
+  <div class="field">
+    <label>Customer Machine ID</label>
+    <input type="text" id="machineId" placeholder="e.g. A1B2C-D3E4F-G5H6I-J7" spellcheck="false" autocomplete="off">
+  </div>
+
+  <div class="field">
+    <label>Plan</label>
+    <select id="plan">
+      <option value="month">Monthly — ₹199/month</option>
+      <option value="year">Annual — ₹1999/year</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Customer Name (for records)</label>
+    <input type="text" id="custName" placeholder="e.g. Rahul Sharma">
+  </div>
+
+  <button onclick="generate()">🔑 Generate Licence Password</button>
+
+  <div class="result" id="result">
+    <h3>Licence Password</h3>
+    <div class="pw-box">
+      <span class="pw-val" id="pwVal">—</span>
+      <button class="copy-btn" onclick="copyPw()">Copy</button>
+    </div>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div class="warn">
+    ⚠️ Keep this file private — it contains your secret salt. Never share or host this file publicly.
+  </div>
+</div>
+
+<script>
+// Must match _SALT in plant-care.html exactly
+const _SALT = 'LeafyByManikRoy2026#PlantCare$Secret';
+
+async function generatePassword(machineId, plan){
+  const raw = machineId.trim().toUpperCase() + '|' + plan + '|' + _SALT;
+  const encoder = new TextEncoder();
+  const data = encoder.encode(raw);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hex.slice(0, 16).toUpperCase().match(/.{1,4}/g).join('-');
+}
+
+async function generate(){
+  const mid = document.getElementById('machineId').value.trim().toUpperCase();
+  const plan = document.getElementById('plan').value;
+  const name = document.getElementById('custName').value.trim() || 'Customer';
+
+  if(!mid){ alert('Please enter the customer Machine ID.'); return; }
+
+  const pw = await generatePassword(mid, plan);
+  const expiry = new Date();
+  if(plan === 'year') expiry.setFullYear(expiry.getFullYear() + 1);
+  else expiry.setMonth(expiry.getMonth() + 1);
+
+  document.getElementById('pwVal').textContent = pw;
+  document.getElementById('meta').innerHTML =
+    `<b>Customer:</b> <span>${name}</span><br>
+     <b>Machine ID:</b> <span>${mid}</span><br>
+     <b>Plan:</b> <span>${plan === 'year' ? 'Annual ₹1,999' : 'Monthly ₹199'}</span><br>
+     <b>Valid until:</b> <span>${expiry.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</span>`;
+  document.getElementById('result').style.display = 'block';
+}
+
+function copyPw(){
+  const pw = document.getElementById('pwVal').textContent;
+  navigator.clipboard.writeText(pw).then(()=>{
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✓ Copied';
+    setTimeout(()=> btn.textContent = 'Copy', 2000);
+  });
+}
+
+// Log to console for admin records
+window.generate = async function(){
+  const mid = document.getElementById('machineId').value.trim().toUpperCase();
+  const plan = document.getElementById('plan').value;
+  const name = document.getElementById('custName').value.trim() || 'Customer';
+  if(!mid){ alert('Please enter the customer Machine ID.'); return; }
+  const pw = await generatePassword(mid, plan);
+  const expiry = new Date();
+  if(plan === 'year') expiry.setFullYear(expiry.getFullYear() + 1);
+  else expiry.setMonth(expiry.getMonth() + 1);
+  document.getElementById('pwVal').textContent = pw;
+  document.getElementById('meta').innerHTML =
+    `<b>Customer:</b> <span>${name}</span><br>
+     <b>Machine ID:</b> <span>${mid}</span><br>
+     <b>Plan:</b> <span>${plan === 'year' ? 'Annual ₹1,999' : 'Monthly ₹199'}</span><br>
+     <b>Valid until:</b> <span>${expiry.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</span>`;
+  document.getElementById('result').style.display = 'block';
+  console.log(`[LEAFY LICENCE] ${new Date().toISOString()} | ${name} | ${mid} | ${plan} | ${pw} | expires ${expiry.toDateString()}`);
+}
+</script>
+</body>
+</html>
